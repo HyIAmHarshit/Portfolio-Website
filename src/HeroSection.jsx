@@ -7,20 +7,36 @@ import { motion } from "framer-motion";
 function HeroSection() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Nav items with matching hrefs
+  const navItems = [
+    { name: "Home", link: "#home" },
+    { name: "About Me", link: "#about" },
+    { name: "Education", link: "#education" },
+    { name: "Skills", link: "#skills" },
+    { name: "Projects", link: "#projects" },
+    { name: "Contact Me", link: "#contact" },
+  ];
+
   return (
-    <div className="w-full min-h-screen bg-zinc-950 text-white">
+    <div className="w-full min-h-screen bg-zinc-950 text-white" id="home">
       {/* Navbar */}
       <nav className="flex justify-between items-center px-6 py-4 shadow-lg bg-zinc-900/60 backdrop-blur sticky top-0 z-50">
-        <h1 className="text-2xl font-bold tracking-widest text-teal-400">Harshit.dev</h1>
+        <h1 className="text-2xl font-bold tracking-widest text-teal-400">
+          Harshit.dev
+        </h1>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-6 text-sm font-medium text-gray-300">
-          <li className="hover:text-teal-400 cursor-pointer">Home</li>
-          <li className="hover:text-teal-400 cursor-pointer">About Me</li>
-          <li className="hover:text-teal-400 cursor-pointer">Education</li>
-          <li className="hover:text-teal-400 cursor-pointer">Skills</li>
-          <li className="hover:text-teal-400 cursor-pointer">Projects</li>
-          <li className="hover:text-teal-400 cursor-pointer">Contact Me</li>
+          {navItems.map((item, idx) => (
+            <li key={idx}>
+              <a
+                href={item.link}
+                className="hover:text-teal-400 transition"
+              >
+                {item.name}
+              </a>
+            </li>
+          ))}
         </ul>
 
         {/* Mobile Hamburger */}
@@ -32,12 +48,18 @@ function HeroSection() {
         </button>
       </nav>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Dropdown */}
       {isOpen && (
-        <div className="md:hidden bg-zinc-900/80 backdrop-blur px-6 py-4 space-y-3 shadow-lg">
-          {["Home", "About Me", "Education", "Skills", "Projects", "Contact Me"].map((item, idx) => (
-            <div key={idx} className="text-gray-300 hover:text-teal-400 cursor-pointer">
-              {item}
+        <div className="md:hidden bg-zinc-900/90 backdrop-blur px-6 py-4 space-y-3 shadow-lg">
+          {navItems.map((item, idx) => (
+            <div key={idx}>
+              <a
+                href={item.link}
+                onClick={() => setIsOpen(false)} // close menu on click
+                className="block text-gray-300 hover:text-teal-400 transition"
+              >
+                {item.name}
+              </a>
             </div>
           ))}
         </div>
@@ -45,7 +67,7 @@ function HeroSection() {
 
       {/* Hero Content */}
       <div className="flex flex-col-reverse md:flex-row items-center justify-between px-8 md:px-16 py-20 gap-12 max-w-6xl mx-auto">
-        {/* Text Side */}
+        {/* Text */}
         <motion.div
           initial={{ x: -60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -57,7 +79,12 @@ function HeroSection() {
           </h2>
           <h3 className="text-xl md:text-2xl text-gray-300">
             <Typewriter
-              words={['Frontend Developer', 'React Enthusiast', 'Tailwind CSS Expert', 'MERN Stack Developer']}
+              words={[
+                "Frontend Developer",
+                "React Enthusiast",
+                "Tailwind CSS Expert",
+                "MERN Stack Developer",
+              ]}
               loop
               cursor
               cursorStyle="|"
@@ -67,16 +94,23 @@ function HeroSection() {
             />
           </h3>
           <p className="text-gray-400 text-sm md:text-base max-w-lg mx-auto md:mx-0">
-            I design and develop modern websites with clean code and beautiful UI. Passionate about building full-stack projects and solving real-world problems through code.
+            I design and develop modern websites with clean code and beautiful
+            UI. Passionate about building full-stack projects and solving
+            real-world problems through code.
           </p>
           <div>
-            <button className="bg-teal-500 hover:bg-teal-600 transition px-6 py-2 text-white rounded-lg shadow-md">
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-teal-500 hover:bg-teal-600 transition px-6 py-2 text-white rounded-lg shadow-md"
+            >
               Download Resume
-            </button>
+            </a>
           </div>
         </motion.div>
 
-        {/* Image Side */}
+        {/* Image */}
         <motion.div
           initial={{ x: 60, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
